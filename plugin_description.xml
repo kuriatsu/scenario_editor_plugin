@@ -1,0 +1,5 @@
+<library path="lib/libscenario_editor_plugin">
+  <class name="AIDI Scenario Editor" type="scenario_editor_plugin::ScenarioEditorPlugin" base_class_type="rviz::Panel">
+    <description>aidi scenario editor panel</description>
+  </class>
+</library>

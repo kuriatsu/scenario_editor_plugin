@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>scenario_editor_plugin</name>
+  <version>0.0.0</version>
+  <description>The scenario_editor plugin package</description>
+
+  <maintainer email="kuriatsubayashi712@gmail.com">docker</maintainer>
+
+
+  <license>Apache 2.0</license>
+
+
+  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>interactive_markers</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <buildtool_depend>qtbase5-dev</buildtool_depend>
+  <buildtool_depend>rviz</buildtool_depend>
+  <exec_depend>libqt5-core</exec_depend>
+  <exec_depend>libqt5-gui</exec_depend>
+  <exec_depend>libqt5-widgets</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <export>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>

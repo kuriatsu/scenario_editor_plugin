@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2021-09-04T13:04:13
+# Project created by QtCreator 2021-09-11T19:34:18
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = aidi_scenario_editor
+TARGET = scenario_editor_plugin
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,10 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        aidiscenarioeditor.cpp
+        scenario_editor_plugin.cpp \
+        scenario_editor_core_node.cpp \
+        ../lib/scenario_editor_core.cpp
+
+
 
 HEADERS += \
-        aidiscenarioeditor.h
+        scenario_editor_plugin.h \
+        ../include/scenario_editor_core.h
 
 FORMS += \
-        aidiscenarioeditor.ui
+    scenarioeditorplugin.ui

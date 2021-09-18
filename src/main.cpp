@@ -1,4 +1,4 @@
-#include "aidiscenarioeditor.h"
+#include "scenario_editor.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
