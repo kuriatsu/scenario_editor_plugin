@@ -183,6 +183,7 @@ void ScenarioEditorPlugin::on_candidate_list_itemDoubleClicked(QListWidgetItem *
 {
     ui->candidate_list->takeItem(ui->candidate_list->row(item));
     ui->included_list->addItem(item->text());
+    ui->candidate_list->sortItems(Qt::AscendingOrder);
     m_scenario[ui->current_scenario_text->text().toInt()]["errors"].emplace_back(item->text().toStdString());
     delete item;
 }
@@ -191,6 +192,7 @@ void ScenarioEditorPlugin::on_included_list_itemDoubleClicked(QListWidgetItem *i
 {
     ui->included_list->takeItem(ui->included_list->row(item));
     ui->candidate_list->addItem(item->text());
+    ui->candidate_list->sortItems(Qt::AscendingOrder);
 
     auto &errors = m_scenario[ui->current_scenario_text->text().toInt()]["errors"];
     for (auto itr = errors.begin(); itr != errors.end(); ++itr)
@@ -233,9 +235,17 @@ void ScenarioEditorPlugin::on_included_list_itemClicked(QListWidgetItem *item)
             ui->score_text->setText(tr(id_score[4].c_str()));
             ui->message_text->setText(tr(id_score[5].c_str()));
             ui->description_text->setText(tr(id_score[6].c_str()));
+            // ui->description_text->setText(QString::fromLocal8Bit(id_score[6].c_str()));
             break;
         }
     }
+}
+
+
+void ScenarioEditorPlugin::on_speed_value_editingFinished()
+{
+    if (ui->current_scenario_text->text().compare("---", Qt::CaseSensitive)==0) return;
+    m_scenario[ui->current_scenario_text->text().toInt()]["speed_limit"] = ui->speed_value->value();
 }
 
 void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)
@@ -247,6 +257,7 @@ void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)
     ui->current_scenario_text->setText(QString::number(selected_scenario_id));
     ui->scenario_start_text->setText(QString::fromStdString(m_scenario[selected_scenario_id]["start_id"]));
     ui->scenario_end_text->setText(QString::fromStdString(m_scenario[selected_scenario_id]["end_id"]));
+    ui->speed_value->setValue(std::stoi((std::string)m_scenario[selected_scenario_id]["speed_limit"]));
     if (ui->scenario_start_text->text().toInt() >= ui->scenario_end_text->text().toInt())
     {
         ui->scenario_start_label->setStyleSheet("background-color : rgb(200, 0, 0);");
@@ -284,6 +295,7 @@ void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)
             ui->candidate_list->addItem(QString::fromStdString(id_score[0]));
         }
     }
+    ui->candidate_list->sortItems(Qt::AscendingOrder);
     highlightScenario();
     return;
 }
@@ -293,7 +305,7 @@ void ScenarioEditorPlugin::highlightScenario()
     clearLines();
     std::vector<std::vector<std::string>> waypoints;
     std::vector<std::vector<std::vector<std::string>>> lines;
-    std::vector<std::vector<float>> colors = {{0.5, 0.0, 0.5, 1.0}};
+    std::vector<std::vector<float>> colors = {{1.0, 0.5, 0.5, 1.0}};
     for (int i = ui->scenario_start_text->text().toInt(); i <= ui->scenario_end_text->text().toInt(); i++)
     {
         if (i > m_waypoint.size()-1) break;
@@ -330,7 +342,7 @@ void ScenarioEditorPlugin::scenarioEditMode()
     makeIntScenarios(id_list, waypoints, colors);
 
     waypoints.clear();
-    colors = {{0.0, 1.0, 0.0, 1.0}};
+    colors = {{1.0, 0.7, 0.4, 1.0}};
 
     for (int i = m_layer*m_layer_size; i < (m_layer+1)*m_layer_size; i++)
     {
@@ -361,7 +373,7 @@ void ScenarioEditorPlugin::scenarioCb(const visualization_msgs::InteractiveMarke
 {
     if (feedback->event_type == visualization_msgs::InteractiveMarkerFeedback::MOUSE_UP)
     {
-        int waypoint_index = getClosestWaypoint(m_waypoint, feedback->pose, m_layer*m_layer_size, (m_layer+1)*m_layer_size);
+        int waypoint_index = getClosestWaypoint(m_waypoint, feedback->pose, m_layer*m_layer_size, std::min((m_layer+1)*m_layer_size, (int)m_waypoint.size()-1));
         geometry_msgs::Pose pose;
         pose.position.x = std::stof(m_waypoint[waypoint_index][0]);
         pose.position.y = std::stof(m_waypoint[waypoint_index][1]);

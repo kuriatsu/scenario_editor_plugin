@@ -186,11 +186,6 @@ void ScenarioEditorCore::makeIntScenarios(const std::vector<std::string> &id_lis
             marker.color.a = colors[0][3];
         }
 
-//        visualization_msgs::InteractiveMarkerControl sphere_control;
-//        sphere_control.always_visible = true;
-//        sphere_control.markers.emplace_back(marker);
-//        int_marker.controls.emplace_back(sphere_control);
-
         visualization_msgs::InteractiveMarkerControl move_control;
         move_control.interaction_mode = visualization_msgs::InteractiveMarkerControl::MOVE_PLANE;
         move_control.name = "move_xy";
@@ -266,59 +261,6 @@ void ScenarioEditorCore::makeButtonWaypoints(const std::vector<std::string> &id_
     int_marker_server->applyChanges();
 }
 
-//void ScenarioEditorCore::makeIntButtonLines(const std::vector<std::vector<int>> &edge_index_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors)
-//{
-//    for (size_t i = 0; i < edge_index_list.size(); i++)
-//    {
-//        visualization_msgs::InteractiveMarker int_marker;
-//        int_marker.header.frame_id = "map";
-//        int_marker.name = "line"+std::to_string(edge_index_list[i][0]);
-//        int_marker.scale = 1.0;
-//        int_marker.pose.position.x = std::stof(waypoints[edge_index_list[i][0]][0]);
-//        int_marker.pose.position.y = std::stof(waypoints[edge_index_list[i][0]][1]);
-//        int_marker.pose.position.z = std::stof(waypoints[edge_index_list[i][0]][2]);
-//        int_marker.pose.orientation.x = 0.0;
-//        int_marker.pose.orientation.y = 0.0;
-//        int_marker.pose.orientation.z = 1.0;
-//        int_marker.pose.orientation.w = 1.0;
-
-//        visualization_msgs::InteractiveMarkerControl control;
-//        control.always_visible = true;
-//        control.interaction_mode = visualization_msgs::InteractiveMarkerControl::BUTTON;
-//        control.name = "button";
-
-//        visualization_msgs::Marker marker;
-//        marker.ns = "segment";
-//        marker.id = edge_index_list[i][0];
-//        marker.type = visualization_msgs::Marker::LINE_STRIP;
-//        marker.action = visualization_msgs::Marker::ADD;
-//        marker.scale.x = 1.0;
-//        marker.scale.y = 0.0;
-//        marker.scale.z = 0.0;
-//        marker.color.r = colors[i][0];
-//        marker.color.g = colors[i][1] ;
-//        marker.color.b = colors[i][2];
-//        marker.color.a = colors[i][3];
-
-//        for (int i = edge_index_list[i][0]; i < edge_index_list[i][1]; i++)
-//        {
-//            geometry_msgs::Point point;
-//            point.x = std::stof(waypoints[i][0]);
-//            point.y = std::stof(waypoints[i][1]);
-//            point.z = std::stof(waypoints[i][2]);
-//            marker.points.emplace_back(point);
-//        }
-
-//        control.markers.emplace_back(marker);
-//        int_marker.controls.emplace_back(control);
-
-//        int_marker_server->insert(int_marker);
-//        int_marker_server->setCallback(std::to_string(edge_index_list[i][0]), boost::bind(&ScenarioEditorCore::intLineButtonCb, this, _1));
-//    }
-
-//    int_marker_server->applyChanges();
-//}
-
 geometry_msgs::Quaternion ScenarioEditorCore::yawToQuat(const double yaw)
 {
     tf::Quaternion tf_quat = tf::createQuaternionFromRPY(0.0, 0.0, yaw);
@@ -368,11 +310,6 @@ void ScenarioEditorCore::buttonCb(const visualization_msgs::InteractiveMarkerFee
 {
     std::cout << feedback->marker_name << std::endl;
 }
-
-//void ScenarioEditorCore::intLineButtonCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback)
-//{
-//    std::cout << feedback->marker_name << std::endl;
-//}
 
 void ScenarioEditorCore::scenarioCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback)
 {

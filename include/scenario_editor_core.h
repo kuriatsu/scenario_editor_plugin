@@ -31,9 +31,7 @@ protected:
     std::vector<std::vector<std::string>> m_waypoint;
     virtual void buttonCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);
     virtual void scenarioCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);
-//    virtual void intLineButtonCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);
     void makeButtonWaypoints(const std::vector<std::string> &id_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors);
-//    void makeIntButtonLines(const std::vector<std::vector<int>> &edge_index_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors);
     void makeIntScenarios(const std::vector<std::string> &id_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors);
     void showLines(const std::vector<std::vector<std::vector<std::string>>> &lines, const std::vector<std::vector<float>> &colors);
     void showPoints(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color);

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
-    <height>454</height>
+    <width>293</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -195,6 +195,19 @@
           <widget class="QSpinBox" name="layer_value"/>
          </item>
          <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="layer_size_label">
            <property name="text">
             <string>Layer Size</string>
@@ -329,13 +342,49 @@
          </item>
          <item>
           <widget class="QLabel" name="add_arrow">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>13</width>
+             <height>35</height>
+            </size>
+           </property>
            <property name="text">
-            <string>&gt;</string>
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../../../../share/bitmap.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QListWidget" name="included_list"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="speed_label">
+           <property name="text">
+            <string>Speed Limit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="speed_value">
+           <property name="maximum">
+            <number>180</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

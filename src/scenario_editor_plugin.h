@@ -64,6 +64,8 @@ private Q_SLOTS:
 
     void on_layer_value_valueChanged(int arg1);
 
+    void on_speed_value_editingFinished();
+
 private:
     Ui::ScenarioEditorPlugin *ui;
     QString m_waypoint_file;
