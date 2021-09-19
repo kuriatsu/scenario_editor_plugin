@@ -90,3 +90,4 @@ rviz
 
 ## Todo
 * Add doxygen
+* Handle Japanese character
