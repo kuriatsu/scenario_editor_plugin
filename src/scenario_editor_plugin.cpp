@@ -212,12 +212,12 @@ void ScenarioEditorPlugin::on_candidate_list_itemClicked(QListWidgetItem *item)
     {
         if (item->text().compare(QString::fromStdString(id_score[0]), Qt::CaseSensitive) == 0)
         {
-            ui->label1_text->setText(tr(id_score[1].c_str()));
-            ui->label2_text->setText(tr(id_score[2].c_str()));
-            ui->label3_text->setText(tr(id_score[3].c_str()));
-            ui->score_text->setText(tr(id_score[4].c_str()));
-            ui->message_text->setText(tr(id_score[5].c_str()));
-            ui->description_text->setText(tr(id_score[6].c_str()));
+            ui->label1_text->setText(QString::fromLocal8Bit(id_score[1].c_str()));
+            ui->label2_text->setText(QString::fromLocal8Bit(id_score[2].c_str()));
+            ui->label3_text->setText(QString::fromLocal8Bit(id_score[3].c_str()));
+            ui->score_text->setText(QString::fromLocal8Bit(id_score[4].c_str()));
+            ui->message_text->setText(QString::fromLocal8Bit(id_score[5].c_str()));
+            ui->description_text->setText(QString::fromLocal8Bit(id_score[6].c_str()));
             break;
         }
     }
@@ -229,12 +229,12 @@ void ScenarioEditorPlugin::on_included_list_itemClicked(QListWidgetItem *item)
     {
         if (item->text().compare(QString::fromStdString(id_score[0]), Qt::CaseSensitive) == 0)
         {
-            ui->label1_text->setText(tr(id_score[1].c_str()));
-            ui->label2_text->setText(tr(id_score[2].c_str()));
-            ui->label3_text->setText(tr(id_score[3].c_str()));
-            ui->score_text->setText(tr(id_score[4].c_str()));
-            ui->message_text->setText(tr(id_score[5].c_str()));
-            ui->description_text->setText(tr(id_score[6].c_str()));
+            ui->label1_text->setText(QString::fromLocal8Bit(id_score[1].c_str()));
+            ui->label2_text->setText(QString::fromLocal8Bit(id_score[2].c_str()));
+            ui->label3_text->setText(QString::fromLocal8Bit(id_score[3].c_str()));
+            ui->score_text->setText(QString::fromLocal8Bit(id_score[4].c_str()));
+            ui->message_text->setText(QString::fromLocal8Bit(id_score[5].c_str()));
+            ui->description_text->setText(QString::fromLocal8Bit(id_score[6].c_str()));
             // ui->description_text->setText(QString::fromLocal8Bit(id_score[6].c_str()));
             break;
         }
@@ -246,6 +246,60 @@ void ScenarioEditorPlugin::on_speed_value_editingFinished()
 {
     if (ui->current_scenario_text->text().compare("---", Qt::CaseSensitive)==0) return;
     m_scenario[ui->current_scenario_text->text().toInt()]["speed_limit"] = ui->speed_value->value();
+}
+
+void ScenarioEditorPlugin::on_highlight_button_clicked(bool checked)
+{
+
+    if (checked)
+    {
+        QString target_error;
+        if (!ui->candidate_list->selectedItems().empty())
+            target_error = ui->candidate_list->selectedItems()[0]->text();
+        else if (!ui->included_list->selectedItems().empty())
+            target_error = ui->included_list->selectedItems().at(0)->text();
+        else
+        {
+            ui->highlight_button->setChecked(false);
+            return;
+        }
+        std::vector<std::vector<std::vector<std::string>>> lines;
+        std::vector<std::vector<float>> colors = {{1.0, 1.0, 0.0, 1.0}};
+        for (const auto &scenario : m_scenario)
+        {
+            bool is_highlight = false;
+            std::vector<std::vector<std::string>> waypoints;
+
+            if ((m_layer+1)*m_layer_size <= std::stoi((std::string)scenario["start_id"]) || std::stoi((std::string)scenario["end_id"]) < m_layer*m_layer_size)
+                continue;
+
+            for (const std::string &error : scenario["errors"])
+            {
+                if (target_error.compare(QString::fromStdString(error), Qt::CaseSensitive) != 0)
+                    continue;
+                is_highlight = true;
+            }
+
+            if (!is_highlight) continue;
+            for (int i = std::stoi((std::string)scenario["start_id"]); i <= std::stoi((std::string)scenario["end_id"]); i++)
+            {
+                if (i > m_waypoint.size()-1) break;
+                waypoints.emplace_back(m_waypoint[i]);
+            }
+            lines.emplace_back(waypoints);
+        }
+        if (!lines.empty())
+        {
+            showLines(lines, colors);
+            ui->highlight_button->setChecked(true);
+        }
+    }
+    else
+    {
+        clearLines();
+        setScenarioInfo(ui->current_scenario_text->text().toInt());
+        ui->highlight_button->setChecked(false);
+    }
 }
 
 void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)

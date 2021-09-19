@@ -159,9 +159,9 @@ void ScenarioEditorCore::makeIntScenarios(const std::vector<std::string> &id_lis
         int_marker.pose.position.y = std::stof(waypoint[1]);
         int_marker.pose.position.z = std::stof(waypoint[2]);
         int_marker.pose.orientation.x = 0.0;
-        int_marker.pose.orientation.y = 1.0;
+        int_marker.pose.orientation.y = 1/std::sqrt(2);
         int_marker.pose.orientation.z = 0.0;
-        int_marker.pose.orientation.w = 1.0;
+        int_marker.pose.orientation.w = 1/std::sqrt(2);
 
         visualization_msgs::Marker marker;
         marker.ns = "scenario";
@@ -220,8 +220,8 @@ void ScenarioEditorCore::makeButtonWaypoints(const std::vector<std::string> &id_
         int_marker.pose.position.z = std::stof(waypoint[2]);
         int_marker.pose.orientation.x = 0.0;
         int_marker.pose.orientation.y = 0.0;
-        int_marker.pose.orientation.z = 1.0;
-        int_marker.pose.orientation.w = 1.0;
+        int_marker.pose.orientation.z = 1/std::sqrt(2);
+        int_marker.pose.orientation.w = 1/std::sqrt(2);
 
         visualization_msgs::InteractiveMarkerControl control;
         control.always_visible = true;
