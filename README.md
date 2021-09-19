@@ -1,4 +1,6 @@
 # aidi_scenario_editor
+This is rviz plugin to edit scenario for Ai Driving Instructure application using Rviz.  
+Written in C++ and Qt.
 
 ## Requirement
 * ROS (tested in melodic)
