@@ -2,6 +2,8 @@
 This is rviz plugin to edit scenario for Ai Driving Instructure application using Rviz.  
 Written in C++ and Qt.
 
+![image](https://user-images.githubusercontent.com/38074802/133961108-e22253fb-6c57-4791-96e3-41869f08806c.png)
+
 ## Requirement
 * ROS (tested in melodic)
 
