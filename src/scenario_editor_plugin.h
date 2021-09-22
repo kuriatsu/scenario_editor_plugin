@@ -96,10 +96,11 @@ private:
 
     void read_csv(const std::string filename, std::vector<std::vector<std::string>> &out_list);
     void read_json(const std::string filename, json &out_list);
-    void setScenarioInfo(const int selected_node);
+    void updateScenarioPanel(const int selected_node);
     void scenarioEditMode();
     void addScenarioMode();
-    void highlightScenario();
+    void highlightSelectedScenario();
+    void updateErrorList(const int &id);
     int insertNewScenario(const std::string &start, const std::string &end);
     void buttonCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);
     void scenarioCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);

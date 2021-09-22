@@ -145,7 +145,7 @@ void ScenarioEditorPlugin::on_tabWidget_tabBarClicked(int index)
             if (m_waypoint.size() > 0)
             {
                 scenarioEditMode();
-                setScenarioInfo(0);
+                updateScenarioPanel(0);
             }
             break;
     }
@@ -284,7 +284,10 @@ void ScenarioEditorPlugin::on_highlight_button_clicked(bool checked)
             for (int i = std::stoi((std::string)scenario["start_id"]); i <= std::stoi((std::string)scenario["end_id"]); i++)
             {
                 if (i > m_waypoint.size()-1) break;
-                waypoints.emplace_back(m_waypoint[i]);
+                std::vector<std::string> buf_waypoint(m_waypoint[i].size());
+                std::copy(m_waypoint[i].begin(), m_waypoint[i].end(), buf_waypoint.begin());
+                buf_waypoint[2] = std::to_string(std::stof(buf_waypoint[2]) + 1.0);
+                waypoints.emplace_back(buf_waypoint);
             }
             lines.emplace_back(waypoints);
         }
@@ -297,40 +300,34 @@ void ScenarioEditorPlugin::on_highlight_button_clicked(bool checked)
     else
     {
         clearLines();
-        setScenarioInfo(ui->current_scenario_text->text().toInt());
-        ui->highlight_button->setChecked(false);
+        updateScenarioPanel(ui->current_scenario_text->text().toInt());
     }
 }
 
-void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)
+void ScenarioEditorPlugin::updateScenarioPanel(const int selected_scenario_id)
 {
     if (m_scenario.size() == 0 || m_waypoint.empty() || m_id_score.empty()) return;
 
-    ui->included_list->clear();
-    ui->candidate_list->clear();
     ui->current_scenario_text->setText(QString::number(selected_scenario_id));
     ui->scenario_start_text->setText(QString::fromStdString(m_scenario[selected_scenario_id]["start_id"]));
     ui->scenario_end_text->setText(QString::fromStdString(m_scenario[selected_scenario_id]["end_id"]));
     ui->speed_value->setValue(std::stoi((std::string)m_scenario[selected_scenario_id]["speed_limit"]));
-    if (ui->scenario_start_text->text().toInt() >= ui->scenario_end_text->text().toInt())
-    {
-        ui->scenario_start_label->setStyleSheet("background-color : rgb(200, 0, 0);");
-        ui->scenario_start_text->setStyleSheet("background-color : rgb(200, 0, 0);");
-        ui->scenario_end_label->setStyleSheet("background-color : rgb(200, 0, 0);");
-        ui->scenario_end_text->setStyleSheet("background-color : rgb(200, 0, 0);");
-    }
-    else
-    {
-        ui->scenario_start_label->setStyleSheet("background-color : transparent;");
-        ui->scenario_start_text->setStyleSheet("background-color : transparent;");
-        ui->scenario_end_label->setStyleSheet("background-color : transparent;");
-        ui->scenario_end_text->setStyleSheet("background-color : transparent;");
-    }
+    ui->highlight_button->setChecked(false);
+
+    updateErrorList(selected_scenario_id);
+    highlightSelectedScenario();
+    return;
+}
+
+void ScenarioEditorPlugin::updateErrorList(const int &id)
+{
+    ui->included_list->clear();
+    ui->candidate_list->clear();
     // add to candidate/include list
     for (std::vector<std::string> &id_score : m_id_score)
     {
         bool included_flag = false;
-        for (const std::string &error : m_scenario[selected_scenario_id]["errors"])
+        for (const std::string &error : m_scenario[id]["errors"])
         {
             if (error ==  id_score[0])
             {
@@ -350,20 +347,39 @@ void ScenarioEditorPlugin::setScenarioInfo(const int selected_scenario_id)
         }
     }
     ui->candidate_list->sortItems(Qt::AscendingOrder);
-    highlightScenario();
-    return;
 }
 
-void ScenarioEditorPlugin::highlightScenario()
+void ScenarioEditorPlugin::highlightSelectedScenario()
 {
     clearLines();
+
+    // check start and end point order
+    if (ui->scenario_start_text->text().toInt() >= ui->scenario_end_text->text().toInt())
+    {
+        ui->scenario_start_label->setStyleSheet("background-color : rgb(200, 0, 0);");
+        ui->scenario_start_text->setStyleSheet("background-color : rgb(200, 0, 0);");
+        ui->scenario_end_label->setStyleSheet("background-color : rgb(200, 0, 0);");
+        ui->scenario_end_text->setStyleSheet("background-color : rgb(200, 0, 0);");
+        return;
+    }
+    else
+    {
+        ui->scenario_start_label->setStyleSheet("background-color : transparent;");
+        ui->scenario_start_text->setStyleSheet("background-color : transparent;");
+        ui->scenario_end_label->setStyleSheet("background-color : transparent;");
+        ui->scenario_end_text->setStyleSheet("background-color : transparent;");
+    }
+
     std::vector<std::vector<std::string>> waypoints;
     std::vector<std::vector<std::vector<std::string>>> lines;
     std::vector<std::vector<float>> colors = {{1.0, 0.5, 0.5, 1.0}};
     for (int i = ui->scenario_start_text->text().toInt(); i <= ui->scenario_end_text->text().toInt(); i++)
     {
         if (i > m_waypoint.size()-1) break;
-        waypoints.emplace_back(m_waypoint[i]);
+        std::vector<std::string> buf_waypoint(m_waypoint[i].size());
+        std::copy(m_waypoint[i].begin(), m_waypoint[i].end(), buf_waypoint.begin());
+        buf_waypoint[2] = std::to_string(std::stof(buf_waypoint[2]) + 1.0);
+        waypoints.emplace_back(buf_waypoint);
     }
     lines.emplace_back(waypoints);
     showLines(lines, colors);
@@ -446,13 +462,13 @@ void ScenarioEditorPlugin::scenarioCb(const visualization_msgs::InteractiveMarke
             {
                 m_scenario[id[0].toInt()]["start_id"] = std::to_string(waypoint_index);
                 ui->current_scenario_text->setText(id[0]);
-                setScenarioInfo(id[0].toInt());
+                updateScenarioPanel(id[0].toInt());
             }
             else if (id.at(1).compare("end", Qt::CaseSensitive) == 0)
             {
                 m_scenario[id[0].toInt()]["end_id"] = std::to_string(waypoint_index);
                 ui->current_scenario_text->setText(id[0]);
-                setScenarioInfo(id[0].toInt());
+                updateScenarioPanel(id[0].toInt());
             }
         }
     }
@@ -462,7 +478,7 @@ void ScenarioEditorPlugin::scenarioCb(const visualization_msgs::InteractiveMarke
         if (id.size() == 2)
         {
             ui->current_scenario_text->setText(id[0]);
-            setScenarioInfo(id[0].toInt());
+            updateScenarioPanel(id[0].toInt());
         }
     }
 }
@@ -490,7 +506,7 @@ void ScenarioEditorPlugin::buttonCb(const visualization_msgs::InteractiveMarkerF
             ui->add_scenario_botton->setText("Add Scenario");
             int current_scenario = insertNewScenario(ui->scenario_start_text->text().toStdString(), feedback->marker_name);
 
-            setScenarioInfo(current_scenario);
+            updateScenarioPanel(current_scenario);
             scenarioEditMode();
         }
     }
