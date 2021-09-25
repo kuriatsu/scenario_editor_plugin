@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['adl_5fserializer',['adl_serializer',['../structnlohmann_1_1adl__serializer.html',1,'nlohmann']]]
+  ['scenarioeditorcore',['ScenarioEditorCore',['../classScenarioEditorCore.html',1,'']]],
+  ['scenarioeditorplugin',['ScenarioEditorPlugin',['../classscenario__editor__plugin_1_1ScenarioEditorPlugin.html',1,'scenario_editor_plugin']]]
 ];
