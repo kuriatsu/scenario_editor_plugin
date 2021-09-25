@@ -33,9 +33,9 @@ protected:
     virtual void scenarioCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);
     void makeButtonWaypoints(const std::vector<std::string> &id_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors);
     void makeIntScenarios(const std::vector<std::string> &id_list, const std::vector<std::vector<std::string>> &waypoints, const std::vector<std::vector<float>> &colors);
-    void showLines(const std::vector<std::vector<std::vector<std::string>>> &lines, const std::vector<std::vector<float>> &colors);
-    void showPoints(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color);
-    void showArrows(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color);
+    void showLines(const std::vector<std::vector<std::vector<std::string>>> &lines, const std::vector<std::vector<float>> &colors, const std::string ns = "");
+    void showPoints(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color, const std::string ns = "");
+    void showArrows(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color, const std::string ns = "");
     void clearLines();
     void clearPoints();
     void clearAllIntMarkers();

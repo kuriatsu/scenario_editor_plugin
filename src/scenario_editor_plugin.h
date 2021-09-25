@@ -76,11 +76,14 @@ private:
     std::vector<std::vector<std::string>> m_id_score;
     std::vector<std::vector<std::string>> m_waypoint;
     json m_scenario;
-    int m_selected_scenario_id;
+
     int m_layer = 0;
     int m_layer_size = 300;
-    bool is_add_scenario_mode = false;
+
     clock_t m_last_fb_time = 0.0;
+    QString m_highlight_error;
+    int m_selected_scenario_id = 0;
+    bool m_is_add_scenario_mode = false;
 
     std::vector<std::vector<float>> m_color_list{
         {1.0, 0.0, 0.0, 1.0},
@@ -96,10 +99,13 @@ private:
 
     void read_csv(const std::string filename, std::vector<std::vector<std::string>> &out_list);
     void read_json(const std::string filename, json &out_list);
-    void updateScenarioPanel(const int selected_node);
-    void scenarioEditMode();
+    void updatePanel(const int &id);
     void addScenarioMode();
-    void highlightSelectedScenario();
+    void updateHighlight();
+    void highlightScenarioSelected(const int &id);
+    void highlightScenarioError(const QString &highlight_error);
+    void makeScenarioEditIntMarker();
+    void makeWaypointIntMarker();
     void updateErrorList(const int &id);
     int insertNewScenario(const std::string &start, const std::string &end);
     void buttonCb(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback);

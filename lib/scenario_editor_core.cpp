@@ -37,16 +37,15 @@ ScenarioEditorCore::~ScenarioEditorCore()
     int_marker_server.reset();
 }
 
-void ScenarioEditorCore::showLines(const std::vector<std::vector<std::vector<std::string>>> &lines, const std::vector<std::vector<float>> &colors)
+void ScenarioEditorCore::showLines(const std::vector<std::vector<std::vector<std::string>>> &lines, const std::vector<std::vector<float>> &colors, const std::string ns)
 {
-    clearLines();
     int i = 0;
     visualization_msgs::MarkerArray array;
     for (const auto &line : lines)
     {
         visualization_msgs::Marker marker;
         marker.header.frame_id = "map";
-        marker.ns = "line";
+        marker.ns = ns;
         marker.id = i;
         marker.type = visualization_msgs::Marker::LINE_STRIP;
         marker.action = visualization_msgs::Marker::ADD;
@@ -85,16 +84,16 @@ void ScenarioEditorCore::showLines(const std::vector<std::vector<std::vector<std
 }
 
 
-void ScenarioEditorCore::showPoints(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color)
+void ScenarioEditorCore::showPoints(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color, const std::string ns)
 {
-    int point_id = 0;
+    int i = 0;
     visualization_msgs::MarkerArray array;
     for (const auto &point : points)
     {
         visualization_msgs::Marker marker;
         marker.header.frame_id = "map";
-        marker.ns = "points";
-        marker.id = point_id;
+        marker.ns = ns;
+        marker.id = i;
         marker.type = visualization_msgs::Marker::SPHERE;
         marker.action = visualization_msgs::Marker::ADD;
         marker.lifetime = ros::Duration(0.0);
@@ -110,21 +109,21 @@ void ScenarioEditorCore::showPoints(const std::vector<std::vector<std::string>> 
         marker.pose.position.y = std::stof(point[1]);
         marker.pose.position.z = std::stof(point[2]);
         array.markers.push_back(marker);
-        point_id++;
+        i++;
     }
     pub_points.publish(array);
 }
 
-void ScenarioEditorCore::showArrows(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color)
+void ScenarioEditorCore::showArrows(const std::vector<std::vector<std::string>> &points, const std::vector<float> &color, const std::string ns)
 {
-    int point_id = 0;
+    int i = 0;
     visualization_msgs::MarkerArray array;
     for (const auto &point : points)
     {
         visualization_msgs::Marker marker;
         marker.header.frame_id = "map";
-        marker.ns = "arrows";
-        marker.id = point_id;
+        marker.ns = ns;
+        marker.id = i;
         marker.type = visualization_msgs::Marker::ARROW;
         marker.action = visualization_msgs::Marker::ADD;
         marker.lifetime = ros::Duration(0.0);
@@ -141,7 +140,7 @@ void ScenarioEditorCore::showArrows(const std::vector<std::vector<std::string>> 
         marker.pose.position.z = std::stof(point[2]);
         marker.pose.orientation = yawToQuat(std::stof(point[3]));
         array.markers.push_back(marker);
-        point_id++;
+        i++;
     }
     pub_points.publish(array);
 }
