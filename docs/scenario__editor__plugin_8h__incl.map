@@ -1,0 +1,29 @@
+<map id="src/scenario_editor_plugin.h" name="src/scenario_editor_plugin.h">
+<area shape="rect" id="node6" href="$json_8hpp_source.html" title="nlohmann/json.hpp" alt="" coords="2769,95,2915,121"/>
+<area shape="rect" id="node46" href="$scenario__editor__core_8h.html" title="Rviz side handler library header file for scenario_editor_plugin package. Show/Remove markers..." alt="" coords="3343,95,3512,121"/>
+<area shape="rect" id="node18" href="$adl__serializer_8hpp_source.html" title="nlohmann/adl_serializer.hpp" alt="" coords="3900,177,4107,203"/>
+<area shape="rect" id="node19" href="$from__json_8hpp_source.html" title="nlohmann/detail/conversions\l/from_json.hpp" alt="" coords="3606,348,3817,389"/>
+<area shape="rect" id="node20" href="$exceptions_8hpp_source.html" title="nlohmann/detail/exceptions.hpp" alt="" coords="1807,445,2037,471"/>
+<area shape="rect" id="node21" href="$value__t_8hpp_source.html" title="nlohmann/detail/value\l_t.hpp" alt="" coords="3203,527,3371,568"/>
+<area shape="rect" id="node22" href="$string__escape_8hpp_source.html" title="nlohmann/detail/string\l_escape.hpp" alt="" coords="1264,527,1433,568"/>
+<area shape="rect" id="node23" href="$macro__scope_8hpp_source.html" title="nlohmann/detail/macro\l_scope.hpp" alt="" coords="1718,616,1891,657"/>
+<area shape="rect" id="node24" href="$cpp__future_8hpp_source.html" title="nlohmann/detail/meta\l/cpp_future.hpp" alt="" coords="2911,527,3077,568"/>
+<area shape="rect" id="node25" href="$type__traits_8hpp_source.html" title="nlohmann/detail/meta\l/type_traits.hpp" alt="" coords="3113,437,3280,479"/>
+<area shape="rect" id="node26" href="$to__json_8hpp_source.html" title="nlohmann/detail/conversions\l/to_json.hpp" alt="" coords="4041,259,4251,300"/>
+<area shape="rect" id="node27" href="$iteration__proxy_8hpp_source.html" title="nlohmann/detail/iterators\l/iteration_proxy.hpp" alt="" coords="4377,348,4563,389"/>
+<area shape="rect" id="node28" href="$byte__container__with__subtype_8hpp_source.html" title="nlohmann/byte_container\l_with_subtype.hpp" alt="" coords="5239,259,5427,300"/>
+<area shape="rect" id="node29" href="$hash_8hpp_source.html" title="nlohmann/detail/hash.hpp" alt="" coords="983,355,1173,382"/>
+<area shape="rect" id="node30" href="$binary__reader_8hpp_source.html" title="nlohmann/detail/input\l/binary_reader.hpp" alt="" coords="2670,348,2835,389"/>
+<area shape="rect" id="node31" href="$input__adapters_8hpp_source.html" title="nlohmann/detail/input\l/input_adapters.hpp" alt="" coords="2315,527,2481,568"/>
+<area shape="rect" id="node32" href="$lexer_8hpp_source.html" title="nlohmann/detail/input\l/lexer.hpp" alt="" coords="2214,437,2379,479"/>
+<area shape="rect" id="node33" href="$parser_8hpp_source.html" title="nlohmann/detail/input\l/parser.hpp" alt="" coords="1603,348,1769,389"/>
+<area shape="rect" id="node34" href="$internal__iterator_8hpp_source.html" title="nlohmann/detail/iterators\l/internal_iterator.hpp" alt="" coords="987,437,1174,479"/>
+<area shape="rect" id="node35" href="$primitive__iterator_8hpp_source.html" title="nlohmann/detail/iterators\l/primitive_iterator.hpp" alt="" coords="987,527,1174,568"/>
+<area shape="rect" id="node36" href="$iter__impl_8hpp_source.html" title="nlohmann/detail/iterators\l/iter_impl.hpp" alt="" coords="2358,348,2545,389"/>
+<area shape="rect" id="node37" href="$json__reverse__iterator_8hpp_source.html" title="nlohmann/detail/iterators\l/json_reverse_iterator.hpp" alt="" coords="4667,527,4859,568"/>
+<area shape="rect" id="node38" href="$json__pointer_8hpp_source.html" title="nlohmann/detail/json\l_pointer.hpp" alt="" coords="1335,348,1493,389"/>
+<area shape="rect" id="node39" href="$json__ref_8hpp_source.html" title="nlohmann/detail/json\l_ref.hpp" alt="" coords="147,348,305,389"/>
+<area shape="rect" id="node40" href="$binary__writer_8hpp_source.html" title="nlohmann/detail/output\l/binary_writer.hpp" alt="" coords="3407,259,3581,300"/>
+<area shape="rect" id="node41" href="$output__adapters_8hpp_source.html" title="nlohmann/detail/output\l/output_adapters.hpp" alt="" coords="3356,348,3531,389"/>
+<area shape="rect" id="node42" href="$serializer_8hpp_source.html" title="nlohmann/detail/output\l/serializer.hpp" alt="" coords="3532,169,3707,211"/>
+</map>
