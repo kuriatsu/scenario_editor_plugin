@@ -1,3 +1,13 @@
+/**
+* @file
+* @brief
+* @author
+* @date
+*
+* @details
+* @note
+*/
+
 #ifndef SCENARIO_EDITOR_H
 #define SCENARIO_EDITOR_H
 

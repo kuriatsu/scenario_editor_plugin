@@ -1,3 +1,13 @@
+/**
+* @file
+* @brief
+* @author
+* @date
+*
+* @details
+* @note
+*/
+
 #include "scenario_editor_plugin.h"
 #include "ui_scenarioeditorplugin.h"
 

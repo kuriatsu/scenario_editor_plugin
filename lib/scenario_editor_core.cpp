@@ -1,9 +1,23 @@
+/**
+* @file scenario_editor_core.cpp
+* @brief Rviz side handler library source file for scenario_editor_plugin package. Show/Remove markers.
+* @author Atsushi Kuribayashi (kuriatsubayashi712@gmail.com)
+* @date 2021/9
+*
+* @details
+* @note
+*/
+
 #include <ros/ros.h>
 #include "scenario_editor_core.h"
 #include <fstream>
 #include <sstream>
 
-
+/**
+ * @brief read_csv Read filename and save to out_list
+ * @param filename CSV file name
+ * @param out_list For return. List data.
+ */
 void read_csv(const std::string filename, std::vector<std::vector<std::string>>& out_list)
 {    
     std::ifstream ifs(filename);
@@ -21,7 +35,6 @@ void read_csv(const std::string filename, std::vector<std::vector<std::string>>&
         out_list.emplace_back(result);
     }
 }
-
 
 ScenarioEditorCore::ScenarioEditorCore()
 {
